@@ -1,6 +1,6 @@
 {
     "name": "calliostro/spotify-client",
-    "description": "Lightweight Spotify Web API client for PHP 8.1+ with modern developer comfort — Clean parameter API, two-tier architecture, and minimal dependencies",
+    "description": "Lightweight Spotify Web API client for PHP 8.1+ with built-in resilience and minimal dependencies.",
     "type": "library",
     "keywords": [
         "php",

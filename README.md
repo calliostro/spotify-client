@@ -1,4 +1,4 @@
-# ⚡ Spotify API Client for PHP 8.1+ – Lightweight with Maximum Developer Comfort
+# Spotify API Client for PHP 8.1+
 
 [![Package Version](https://img.shields.io/packagist/v/calliostro/spotify-client.svg)](https://packagist.org/packages/calliostro/spotify-client)
 [![Total Downloads](https://img.shields.io/packagist/dt/calliostro/spotify-client.svg)](https://packagist.org/packages/calliostro/spotify-client)
@@ -10,7 +10,7 @@
 [![PHPStan Level](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg)](https://phpstan.org/)
 [![Code Style](https://img.shields.io/badge/code%20style-PSR12-brightgreen.svg)](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
-> **🚀 MINIMAL YET POWERFUL!** Focused, lightweight Spotify Web API client — as compact as possible while maintaining modern PHP comfort and clean APIs.
+A lightweight, modern PHP client for the [Spotify Web API](https://developer.spotify.com/documentation/web-api), supporting catalog search, playback controls, playlists, user library, and full OAuth flows for PHP 8.1+.
 
 ## 📦 Installation
 
@@ -352,7 +352,3 @@ Spotify is a registered trademark of Spotify AB. This project is an independent,
 - [Spotify](https://developer.spotify.com/documentation/web-api) for the comprehensive Web API.
 - [Guzzle](https://docs.guzzlephp.org/) for the rock-solid HTTP transport.
 - Sister projects: [`calliostro/php-discogs-api`](https://github.com/calliostro/php-discogs-api), [`calliostro/lastfm-client`](https://github.com/calliostro/lastfm-client), and [`calliostro/musicbrainz-client`](https://github.com/calliostro/musicbrainz-client).
-
----
-
-> ⭐ **Star this repo if you find it useful!**

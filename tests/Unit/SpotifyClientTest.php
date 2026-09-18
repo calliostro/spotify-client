@@ -419,6 +419,25 @@ final class SpotifyClientTest extends TestCase
         }
     }
 
+    public function testRateLimitDisabledWithMaxRetriesZeroThrowsImmediately(): void
+    {
+        $mock = new MockHandler([
+            new Response(429, ['Retry-After' => '7'], json_encode(['error' => ['message' => 'Too many requests']], JSON_THROW_ON_ERROR)),
+        ]);
+
+        $client = new SpotifyClient(new GuzzleClient(['handler' => HandlerStack::create($mock)]), null, [
+            'max_retries' => 0,
+        ]);
+
+        try {
+            $client->get('/test');
+            $this->fail('Expected RateLimitException was not thrown');
+        } catch (RateLimitException $e) {
+            $this->assertSame(7, $e->getRetryAfter());
+            $this->assertSame('Too many requests', $e->getMessage());
+        }
+    }
+
     public function testNotFoundThrowsNotFoundException(): void
     {
         $this->mockHandler->append(

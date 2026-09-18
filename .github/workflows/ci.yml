@@ -45,6 +45,21 @@ jobs:
             stability: 'dev'
             allowed-to-fail: true
 
+          # Guzzle 7.0 backwards compatibility tests
+          - php: '8.1'
+            guzzle: '7'
+            allowed-to-fail: false
+          - php: '8.4'
+            guzzle: '7'
+            allowed-to-fail: false
+          - php: '8.5'
+            guzzle: '7'
+            allowed-to-fail: false
+          - php: '8.6'
+            guzzle: '7'
+            allowed-to-fail: true
+
+          # Guzzle 8.0 compatibility tests
           - php: '8.4'
             guzzle: '8'
             allowed-to-fail: false
@@ -61,7 +76,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -76,7 +91,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -90,7 +105,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ "${{ matrix.guzzle }}" = "8" ]; then
+          if [ "${{ matrix.guzzle }}" = "7" ]; then
+            composer require "guzzlehttp/guzzle:^7.0" --with-all-dependencies --prefer-dist --no-interaction --no-progress
+          elif [ "${{ matrix.guzzle }}" = "8" ]; then
             composer require "guzzlehttp/guzzle:^8.0" --with-all-dependencies --prefer-dist --no-interaction --no-progress
           else
             composer install --prefer-dist --no-interaction --no-progress
@@ -122,7 +139,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -137,7 +154,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -155,7 +172,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -170,7 +187,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -183,10 +200,10 @@ jobs:
         run: composer test-coverage
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
+          files: ./coverage.xml
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: false
